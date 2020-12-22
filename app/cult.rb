@@ -23,6 +23,15 @@ class Cult
         BloodOath.new follower, self, initiation_date
     end
 
+    def average_age
+        solution = my_oaths.map {|oaths| oaths.follower.age.to_f}
+        (solution.sum / solution.count)
+    end
+
+    def my_followers_mottos
+        print my_oaths.map {|oaths| oaths.follower.life_motto}
+    end
+
     def cult_population 
         my_oaths.count
     end
@@ -39,5 +48,12 @@ class Cult
         all.filter {|cults| cults.founding_year == founding_year}
     end
 
+    def self.least_popular
+        all.min_by {|cult| cult.cult_population}   
+    end
+
+    def self.most_common_location
+        all.max_by {|cult| cult.cult_population}.location
+    end
 
 end
